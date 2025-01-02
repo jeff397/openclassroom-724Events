@@ -4,6 +4,7 @@ import Select from "../../components/Select";
 import { useData } from "../../contexts/DataContext";
 import Modal from "../Modal";
 import ModalEvent from "../ModalEvent";
+// import { getMonth } from "../../helpers/Date";
 
 import "./style.css";
 
@@ -14,15 +15,12 @@ const EventList = () => {
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Étape 1 : Filtrer les événements avant pagination
   const eventsByType = (data?.events || []).filter(
     (event) => !type || event.type === type
   );
 
-  // Étape 2 : Calculer le nombre total de pages
   const totalPages = Math.ceil(eventsByType.length / PER_PAGE);
 
-  // Étape 3 : Paginer les événements
   const paginatedEvents = eventsByType.slice(
     (currentPage - 1) * PER_PAGE,
     currentPage * PER_PAGE
@@ -57,6 +55,7 @@ const EventList = () => {
                     title={event.title}
                     date={new Date(event.date)}
                     label={event.type}
+                    month={event}
                   />
                 )}
               </Modal>
