@@ -4,6 +4,14 @@ import { getMonth } from "../../helpers/Date";
 
 import "./style.scss";
 
+let keyIndex = 0;
+
+function generateKey() {
+  keyIndex += 1;
+
+  return keyIndex;
+}
+
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
@@ -24,7 +32,7 @@ const Slider = () => {
       {}
       {byDateDesc?.map((event, idx) => (
         <div
-          key={`card-${event.id}`}
+          key={`card-${event.title}`}
           className={`SlideCard SlideCard--${
             index === idx ? "display" : "hide"
           }`}
@@ -44,7 +52,7 @@ const Slider = () => {
         <div className="SlideCard__pagination">
           {byDateDesc?.map((item, radioIdx) => (
             <input
-              key={`pagination-${item.id}`}
+              key={`pagination-${generateKey()}`}
               type="radio"
               name="radio-button"
               checked={index === radioIdx}
