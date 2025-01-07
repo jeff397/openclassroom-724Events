@@ -53,7 +53,9 @@ const Page = () => {
           </div>
         </section>
         <section className="EventsContainer">
-          <h2 className="Title">Nos réalisations</h2>
+          <h2 className="Title" id="Realisation" datatest-id="Realisation">
+            Nos réalisations
+          </h2>
           <EventList />
         </section>
         <section className="PeoplesContainer">
@@ -111,7 +113,7 @@ const Page = () => {
           </Modal>
         </div>
       </main>
-      <footer className="row">
+      <footer data-testid="footer" className="row">
         <div className="col presta">
           <h3>Notre derniére prestation</h3>
           {last ? (

@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
+import EventCard from "../../components/EventCard";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -24,21 +25,47 @@ describe("When Form is created", () => {
       await screen.findByText("Message envoyé !");
     });
   });
-
 });
 
-
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
-  })
-  it("a list a people is displayed", () => {
-    // to implement
-  })
-  it("a footer is displayed", () => {
-    // to implement
-  })
-  it("an event card, with the last event, is displayed", () => {
-    // to implement
-  })
+  it("a list of events is displayed", async () => {
+    const { container } = render(<Home />);
+    const Realisation = await container.querySelector("#Realisation");
+    expect(Realisation.innerHTML).toEqual("Nos réalisations");
+    const events = await container.querySelector("#events");
+    expect(events).toBeInTheDocument();
+  });
+  it("a list a people is displayed", async () => {
+    render(<Home />);
+    await screen.findByText("Samira");
+    await screen.findByText("Alice");
+    await screen.findByText("Christine");
+    await screen.findByText("Isabelle");
+  });
+  it("a footer is displayed", async () => {
+    render(<Home />);
+    const footer = screen.getByTestId("footer");
+    expect(footer).toBeInTheDocument();
+  });
+  it("an event card, with the last event, is displayed", () => {});
+  const mockProps = {
+    imageSrc: "/images/event.jpg",
+    imageAlt: "Description de l'image",
+    label: "Événement",
+    title: "Événement spécial",
+    date: new Date("2025-01-01"),
+  };
+  render(
+    <EventCard
+      imageSrc={mockProps.imageSrc}
+      imageAlt={mockProps.imageAlt}
+      label={mockProps.label}
+      title={mockProps.title}
+      date={mockProps.date}
+    />
+  );
+  const cardImage = screen.getByTestId("card-image-testid");
+  expect(cardImage).toBeInTheDocument();
+  expect(cardImage).toHaveAttribute("src", mockProps.imageSrc);
+  expect(cardImage).toHaveAttribute("alt", mockProps.imageAlt);
 });
