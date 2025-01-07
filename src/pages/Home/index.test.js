@@ -44,8 +44,14 @@ describe("When a page is created", () => {
   });
   it("a footer is displayed", async () => {
     render(<Home />);
-    const footer = screen.getByTestId("footer");
-    expect(footer).toBeInTheDocument();
+    expect(screen.getByText("Notre derniére prestation"));
+    expect(screen.getByText("Contactez-nous"));
+    expect(screen.getByText("45 avenue de la République, 75000 Paris"));
+    expect(
+      screen.getByText(
+        "Une agence événementielle propose des prestations de service spécialisées dans la conception et l'organisation de divers événements tels que des événements festifs, des manifestations sportives et culturelles, des événements professionnels"
+      )
+    );
   });
   it("an event card, with the last event, is displayed", () => {});
   const mockProps = {
