@@ -24,17 +24,33 @@ export const DataProvider = ({ children }) => {
   let lastEvent = null;
 
   const loadDataEvent = async () => {
-    const dataEvent = await api.loadData();
-    if (dataEvent && dataEvent.events) {
-      lastEvent = dataEvent.events.reduce(
-        (latest, event) =>
-          new Date(event.date) > new Date(latest.date) ? event : latest,
-        dataEvent.events[0]
-      );
+    try {
+      const dataEvent = await api.loadData();
+      if (dataEvent && dataEvent.events) {
+        lastEvent = dataEvent.events.reduce(
+          (latest, event) =>
+            new Date(event.date) > new Date(latest.date) ? event : latest,
+          dataEvent.events[0]
+        );
+        console.log("lastEvent:", lastEvent);
+      } else {
+        console.log("data or data.events is undefined");
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  loadDataEvent();
+  useEffect(() => {
+    const load = async () => {
+      try {
+        await loadDataEvent();
+      } catch (err) {
+        console.error("Error in loadDataEvent:", err);
+      }
+    };
+    load();
+  }, []);
 
   const getData = useCallback(async () => {
     try {
