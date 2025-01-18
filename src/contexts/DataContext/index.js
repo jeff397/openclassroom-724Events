@@ -32,9 +32,6 @@ export const DataProvider = ({ children }) => {
             new Date(event.date) > new Date(latest.date) ? event : latest,
           dataEvent.events[0]
         );
-        console.log("lastEvent:", lastEvent);
-      } else {
-        console.log("data or data.events is undefined");
       }
     } catch (err) {
       console.error(err);

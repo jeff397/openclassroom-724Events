@@ -6,11 +6,11 @@ import "./style.scss";
 
 let keyIndex = 0;
 
-function generateKey() {
+const generateKey = () => {
   keyIndex += 1;
 
   return keyIndex;
-}
+};
 
 const Slider = () => {
   const { data } = useData();
@@ -50,7 +50,7 @@ const Slider = () => {
 
       <div className="SlideCard__paginationContainer">
         <div className="SlideCard__pagination">
-          {byDateDesc?.map((item, radioIdx) => (
+          {byDateDesc?.map((radioIdx) => (
             <input
               key={`pagination-${generateKey()}`}
               type="radio"
